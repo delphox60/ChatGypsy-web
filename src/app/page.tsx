@@ -1,5 +1,6 @@
 // src/app/page.tsx
 "use client";
+import '../styles/globalx.css';
 
 import Chat from '../components/Chat';
 

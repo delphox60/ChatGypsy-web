@@ -4,12 +4,15 @@ import Message from './Message';
 import Form from './Form';
 
 const Chat = () => {
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<{ text: string; isUser: boolean }[]>([]);
 
     const addMessage = (message: string) => {
-        setMessages([...messages, `User: ${message}`]);
+        setMessages([...messages, { text: message, isUser: true }]);
         setTimeout(() => {
-            setMessages((prevMessages) => [...prevMessages, `AI: This is a dummy response to "${message}"`]);
+            setMessages((prevMessages) => [
+                ...prevMessages,
+                { text: `This is a dummy response to "${message}"`, isUser: false }
+            ]);
         }, 1000); // Simulate a 1-second delay for AI response
     };
 
@@ -17,7 +20,7 @@ const Chat = () => {
         <div className="chat-container">
             <div className="messages">
                 {messages.map((msg, index) => (
-                    <Message key={index} text={msg} />
+                    <Message key={index} text={msg.text} isUser={msg.isUser} />
                 ))}
             </div>
             <Form addMessage={addMessage} />
